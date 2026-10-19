@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#193b31">
+  <meta name="description" content="Discover free books, open the official reading page, and read your own PDF, EPUB, HTML, or text files in one simple library.">
+  <title>Booknest — A little more reading</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="announcement"><span class="announcement-dot"></span> A quiet corner of the internet for curious minds</div>
+  <header class="site-header">
+    <a href="#" class="brand" data-view="discover" aria-label="Booknest home">
+      <span class="brand-mark" aria-hidden="true">b<span>.</span></span>
+      <span class="brand-name">booknest<span class="brand-period">.</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <button class="nav-link active" data-view="discover"><span class="nav-icon">⌕</span> Discover</button>
+      <button class="nav-link" data-view="shelf"><span class="nav-icon">▤</span> My shelf <span class="shelf-count" id="shelfCount">0</span></button>
+      <button class="nav-link" data-view="reader"><span class="nav-icon">▧</span> My reader</button>
+    </nav>
+    <a class="header-note" href="#about">Free books, fair reading <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> YOUR NEXT CHAPTER STARTS HERE</div>
+        <h1>Find a book.<br><em>Find your world.</em></h1>
+        <p class="hero-description">Explore a catalog of free-to-access classics, save books to your shelf, and read your own files in a calm, simple reader.</p>
+        <form class="search-form" id="searchForm" role="search">
+          <span class="search-symbol" aria-hidden="true">⌕</span>
+          <label class="sr-only" for="searchInput">Search by title or author</label>
+          <input id="searchInput" type="search" placeholder="Search titles, authors, or ideas…" autocomplete="off">
+          <button type="submit">Find a book <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="hero-footnote"><span aria-hidden="true">✳</span> Start with a classic, or search for something you love.</div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun-shape"></div>
+        <div class="hero-leaf leaf-one"></div><div class="hero-leaf leaf-two"></div>
+        <div class="floating-book book-back"><span></span><span></span><span></span></div>
+        <div class="floating-book book-front"><div class="mini-sun"></div><div class="mini-title">THE<br>WONDER<br>OF WORDS</div><div class="mini-rule"></div><div class="mini-caption">A collection for curious minds</div></div>
+        <div class="art-label"><span class="art-label-star">✳</span><span>Make time<br>for a good book.</span></div>
+      </div>
+    </section>
+
+    <section class="quick-stats" aria-label="Library highlights">
+      <div><span class="stat-icon">✳</span><strong>Discover</strong><small>Stories worth finding</small></div>
+      <div><span class="stat-icon">♡</span><strong>Keep close</strong><small>Your personal shelf</small></div>
+      <div><span class="stat-icon">◫</span><strong>Read your way</strong><small>PDF, EPUB and text files</small></div>
+      <div class="source-stat"><span class="stat-icon">↗</span><strong>Open catalog</strong><small>Free classic ebooks</small></div>
+    </section>
+
+    <section class="library-section" id="catalogSection">
+      <div class="section-heading">
+        <div><div class="eyebrow"><span class="eyebrow-line"></span> THE BOOKSHELF</div><h2 id="catalogTitle">Popular picks <span class="heading-period">.</span></h2><p id="catalogSubtitle">A little inspiration for your reading list.</p></div>
+        <div class="catalog-controls">
+          <label class="sr-only" for="languageFilter">Filter books by language</label>
+          <select id="languageFilter" class="filter-select">
+            <option value="en">English books</option><option value="fr">French books</option><option value="de">German books</option><option value="es">Spanish books</option><option value="it">Italian books</option><option value="pt">Portuguese books</option><option value="all">All languages</option>
+          </select>
+          <label class="sr-only" for="sortFilter">Sort books</label>
+          <select id="sortFilter" class="filter-select"><option value="popular">Most popular</option><option value="ascending">Oldest catalog entries</option><option value="descending">Newest catalog entries</option></select>
+        </div>
+      </div>
+      <div class="topic-row" id="topicRow" aria-label="Browse by topic">
+        <button class="topic-chip active" data-topic="">Everything</button>
+        <button class="topic-chip" data-topic="fiction">Fiction</button>
+        <button class="topic-chip" data-topic="mystery">Mystery</button>
+        <button class="topic-chip" data-topic="romance">Romance</button>
+        <button class="topic-chip" data-topic="science">Science</button>
+        <button class="topic-chip" data-topic="history">History</button>
+        <button class="topic-chip" data-lopic="children">Children</button>
+        <button class="topic-chip" data-lopic="philosophy">Philosophy</button>
+      </div>
+      <div class="results-meta"><span id="resultsLabel">Popular books from the free ebook catalog</span><span id="resultCount"></span></div>
+      <div id="bookGrid" class="book-grid" aria-live="polite" aria-busy="true">
+        <div class="loading-card"><span class="spinner"></span><p>Opening the library…</p></div>
+        <div class="loading-card"><span class="spinner"></span><p>Finding your next read…</p></div>
+        <div class="loading-card"><span class="spinner"></span><p>Gathering book details…</p></div>
+        <div class="loading-card"><span class="spinner"></span><p>Almost ready…</p></div>
+      </div>
+      <div class="pagination-row"><button class="button-outline" id="previousPage" disabled>← Previous</button><span id="pageLabel">Page 1</span><button class="button-dark" id="nextPage" disabled>More books →</button></div>
+      <p class="catalog-credit">Catalog information provided by <a href="https://gutendex.com/" target="_blank" rel="noopener noreferrer">Gutendex</a>. Each book links to its official Project Gutenberg landing page for available reading and download formats.</p>
+    </section>
+
+    <section class="reader-promo" id="readerPromo">
+      <div class="promo-mark" aria-hidden="true">▧</div>
+      <div><div class="eyebrow">YOUR OWN LITTLE READING ROOM</div><h2>Already have a book file?</h2><p>Open a PDF, EPUB, TXT, or HTML file from your device and read it here. Your file stays on your device; Booknest does not upload it.</p></div>
+      <button class="button-light" data-view="reader">Open my reader <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section class="view-panel hidden" id="shelfView">
+      <div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR COLLECTION</div><h2>My shelf <span class="heading-period">.</span></h2><p>Books you've saved for later, all in one place.</p></div></div>
+      <div id="shelfGrid" class="book-grid"></div>
+      <div id="emptyShelf" class="empty-state"><div class="empty-icon">♡</div><h3>Your shelf is waiting.</h3><p>Tap “Save to shelf” on a book you like, and it will be kept here on this device.</p><button class="button-dark" data-view="discover">Discover books →</button></div>
+    </section>
+
+    <section class="view-panel reader-panel hidden" id="readerView">
+      <div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> A PLACE TO SLOW DOWN</div><h2>My reader <span class="heading-period">.</span></h2><p>Choose a book file from your device and settle in.</p></div></div>
+      <div class="reader-upload" id="readerUpload">
+        <input type="file" id="localBookInput" accept=".pdf,.epub,.txt,.html,.htm,text/plain,text/html,application/pdf,application/epub+zip" hidden>
+        <div class="upload-icon">＋</div><h3>Bring your book along</h3><p>Choose a PDF, EPUB, plain text, or HTML file saved on your device.</p>
+        <button class="button-dark" id="chooseFileButton">Choose a book file</button>
+        <small>Files are opened locally in your browser; they are not uploaded to a server.</small>
+      </div>
+      <div class="reader-workspace hidden" id="readerWorkspace">
+        <div class="reader-toolbar"><div class="reader-file-name"><span class="reader-file-icon">▤</span><div><strong id="readerBookName">My book</strong><small id="readerFileType">Local file</small></div></div><div class="reader-actions"><button class="button-outline small" id="fontMinus" aria-label="Decrease text size">A−</button><button class="button-outline small" id="fontPlus" aria-label="Increase text size">A+</button><button class="button-outline small" id="closeReader">Close book ×</button></div></div>
+        <div class="reader-progress-wrap"><div class="reader-progress-track"><div id="readerProgressBar"></div></div><span id="readerProgressText">Ready to read</span></div>
+        <div id="textReader" class="text-reader hidden"></div>
+        <div id="pdfReader" class="pdf-reader hidden"><iframe id="pdfFrame" title="Local PDF reader"></iframe></div>
+        <div id="epubReader" class="epub-reader hidden"><div class="epub-controls"><button class="button-outline" id="epubPrev">← Previous page</button><span id="epubLocation">Opening EPUB…</span><button class="button-dark" id="epubNext">Next page →</button></div><div id="epubStage" class="epub-stage"></div></div>
+        <div class="reader-bottom-note"><span>✳</span> Take your time. Your reading progress is kept only while this book is open.</div>
+      </div>
+      <div class="reader-help"><strong>Reader tips</strong><span>PDF opens in the browser's document viewer.</span><span>EPUB uses the open-source epub.js reader library.</span><span>TXT and HTML are shown as readable text.</span></div>
+    </section>
+
+    <section class="about-strip" id="about"><div><div class="eyebrow">READ RESPONSIBLY</div><h2>Good stories deserve a good home.</h2><p>Booknest helps you discover free-to-access classics. Availability and reuse rights can vary by country, so check each source's terms before redistributing a book.</p></div><a href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">Visit Project Gutenberg <span aria-hidden="true">↗</span></a></section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="#"><span class="brand-mark">b<span>.</span></span><span class="brand-name">booknest<span class="brand-period">.</span></span></a><span>Made for curious minds and quiet moments.</span><span>Booknest · Free catalog discovery + local reading</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
